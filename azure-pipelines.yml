@@ -19,19 +19,19 @@ pr:
     - master
 
 variables:
-  PYTEST_ADDOPTS: "-v -v -ra --showlocals"
+  PYTEST_ADDOPTS: "-v -v -ra --showlocals --durations=15"
   PYTEST_XDIST_PROC_NR: 'auto'
   CI_RUN: 'yes'
+  UPGRADE_ADVISORY: 'yes'
 
 jobs:
 - template: run-tox-env.yml@tox
   parameters:
     jobs:
       fix_lint: null
-      embed: null
-      cross_python2: null
-      cross_python3: null
       docs: null
+      py38:
+        image: [linux]
       py37:
         image: [linux, windows, macOs]
       py36:
@@ -43,6 +43,8 @@ jobs:
       py27:
         image: [linux, windows, macOs]
       dev: null
+      upgrade:
+        image: [linux, windows, macOs]
       package_readme: null
     before:
       - script: 'sudo apt-get update -y && sudo apt-get install fish csh'
