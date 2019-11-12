@@ -88,6 +88,10 @@ _is_64bit = (getattr(sys, "maxsize", None) or getattr(sys, "maxint")) > 2 ** 32
 _is_pypy = hasattr(sys, "pypy_version_info")
 
 
+def getsitepackages(prefixes=None):
+    return []
+
+
 def makepath(*paths):
     dir = os.path.join(*paths)
     dir = os.path.abspath(dir)
